@@ -84,6 +84,22 @@ class CafeKioskTest {
     }
 
     /**
+     * TDD 방식으로 calculateTotalPrice 기능 구현
+     */
+    @Test
+    void calculateTotalPrice() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+        assertThat(totalPrice).isEqualTo(8500);
+    }
+
+    /**
      * 주문이 잘 생성되는가(현재 시간에 의존적임)
      */
     @Test
