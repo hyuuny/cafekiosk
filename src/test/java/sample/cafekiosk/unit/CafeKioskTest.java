@@ -1,5 +1,6 @@
 package sample.cafekiosk.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -22,6 +23,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("음료 1개 추가하면 주문 목록에 담긴다.")
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         cafeKiosk.add(new Americano());
@@ -118,6 +120,7 @@ class CafeKioskTest {
      * 주문이 잘 생성되는가(외부에서 시간을 받기 때문에 현재에 의존적이지 않음)
      */
     @Test
+    @DisplayName("영업 시작 시간 이후에는 주문을 할 수 있다.")
     void createOrderWithCurrentTime() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -133,6 +136,7 @@ class CafeKioskTest {
      * 오픈 시간 전에 주문하면 예외가 발생하는가
      */
     @Test
+    @DisplayName("영업 시작 시간 이전에는 주문을 생성할 수 없다.") // 도메인 용어를 사용해서 한층 추상화된 내용 담기
     void createOrderOutsideOpenTime() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
