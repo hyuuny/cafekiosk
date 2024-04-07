@@ -38,4 +38,8 @@ public class Stock {
     public boolean isQuantityLessThan(int quantity) {
         return this.quantity < quantity;
     }
+
+    public void deductQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
 }
