@@ -19,20 +19,28 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductResponse createProduct(ProductCreateRequest request) {
-        String latestProductNumber = productRepository.findLatestProductNumber();
+        String latestProductNumber = createNextProductNumber();
+
         return ProductResponse.builder()
-                .productNumber("002")
-                .type(ProductType.HANDMADE)
-                .sellingStatus(ProductSellingStatus.SELLING)
-                .name("카푸치노")
-                .price(5000)
+                .productNumber(latestProductNumber)
+                .type(request.getType())
+                .sellingStatus(request.getSellingStatus())
+                .name(request.getName())
+                .price(request.getPrice())
                 .build();
     }
 
     public List<ProductResponse> getSellingProducts() {
         List<Product> products = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
         return products.stream()
-                .map(product -> ProductResponse.of(product))
+                .map(ProductResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    private String createNextProductNumber() {
+        String latestProductNumber = productRepository.findLatestProductNumber();
+        int latestProductNumberInt = Integer.parseInt(latestProductNumber);
+        int nextProductNumberInt = latestProductNumberInt + 1;
+        return String.format("%03d", nextProductNumberInt);
     }
 }
