@@ -120,4 +120,28 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
+    @DisplayName("신규 상품을 등록할 떄 상품 가격은 양수이다.")
+    @Test
+    void createProductWithoutZeroPrice() throws Exception {
+        // given
+        ProductCreateRequest request = ProductCreateRequest.builder()
+                .type(ProductType.HANDMADE)
+                .sellingStatus(ProductSellingStatus.SELLING)
+                .name("아메리카노")
+                .price(0)
+                .build();
+
+        // when // then
+        mockMvc.perform(post("/api/v1/products/new")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("$.message").value("상품 가격은 양수여야 합니다."))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
 }
