@@ -1,7 +1,10 @@
 package sample.cafekiosk.spring.api;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class ApiResponse<T> {
 
     private int code;
