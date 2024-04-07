@@ -51,4 +51,24 @@ class OrderControllerTest {
                 .andExpect(jsonPath("$.message").value(HttpStatus.OK.name()));
     }
 
+    @DisplayName("신규 주문을 등록할 때 상품 번호는 1개 이상이어야 한다.")
+    @Test
+    void createOrderWithEmptyProductNumbers() throws Exception {
+        // given
+        OrderCreateRequest request = OrderCreateRequest.builder()
+                .build();
+
+        // when // then
+        mockMvc.perform(post("/api/v1/orders/new")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("$.message").value("상품 번호 리스트는 필수입니다."))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
 }
