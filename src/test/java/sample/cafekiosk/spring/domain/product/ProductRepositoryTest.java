@@ -130,7 +130,7 @@ class ProductRepositoryTest {
         assertThat(latestProductNumber).isNull();
     }
 
-    private static Product getProduct(String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
+    private Product getProduct(String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
         return Product.builder()
                 .productNumber(productNumber)
                 .type(type)
