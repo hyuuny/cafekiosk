@@ -7,6 +7,7 @@ import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
+import sample.cafekiosk.spring.domain.product.ProductType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,13 @@ public class ProductService {
 
     public ProductResponse createProduct(ProductCreateRequest request) {
         String latestProductNumber = productRepository.findLatestProductNumber();
-        return null;
+        return ProductResponse.builder()
+                .productNumber("002")
+                .type(ProductType.HANDMADE)
+                .sellingStatus(ProductSellingStatus.SELLING)
+                .name("카푸치노")
+                .price(5000)
+                .build();
     }
 
     public List<ProductResponse> getSellingProducts() {
