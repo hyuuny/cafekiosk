@@ -137,7 +137,7 @@ class OrderServiceTest {
         assertThat(orderResponse)
                 .extracting("registeredDateTime", "totalPrice")
                 .contains(registeredDateTime, 10000);
-        assertThat(orderResponse.getProducts()).hasSize(2)
+        assertThat(orderResponse.getProducts()).hasSize(4)
                 .extracting("productNumber", "price")
                 .containsExactlyInAnyOrder(
                         Tuple.tuple("001", 1000),
@@ -147,8 +147,7 @@ class OrderServiceTest {
                 );
 
         List<Stock> stocks = stockRepository.findAll();
-        assertThat(stocks).hasSize(2);
-        assertThat(orderResponse.getProducts()).hasSize(2)
+        assertThat(stocks).hasSize(2)
                 .extracting("productNumber", "quantity")
                 .containsExactlyInAnyOrder(
                         Tuple.tuple("001", 0),
