@@ -22,6 +22,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
@@ -69,6 +71,9 @@ class OrderStatisticsServiceTest {
         Order order2 = createPaymentCompletedOrder(products, now);
         Order order3 = createPaymentCompletedOrder(products, LocalDateTime.of(2024, 4, 8, 23, 59, 59));
         Order order4 = createPaymentCompletedOrder(products, LocalDateTime.of(2024, 4, 9, 0, 0));
+
+        // stubbing
+        when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString())).thenReturn(true);
 
         // when
         boolean result = orderStatisticsService.sendOrderStatisticsMail(LocalDate.of(2024, 4, 8), "test@test.com");
