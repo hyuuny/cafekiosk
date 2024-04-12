@@ -27,4 +27,21 @@ public class GuavaLearningTest {
                 ));
     }
 
+    @DisplayName("6개의 데이터를 가진 List를 4개씩 파티셔닝한다.")
+    @Test
+    void partitionLearningTestWithSizeFour() {
+        // given
+        List<Integer> integers = List.of(1, 2, 3, 4, 5, 6);
+
+        // when
+        List<List<Integer>> partition = Lists.partition(integers, 4);
+
+        // then
+        assertThat(partition).hasSize(2)
+                .isEqualTo(List.of(
+                        List.of(1, 2, 3, 4),
+                        List.of(5, 6)
+                ));
+    }
+
 }
